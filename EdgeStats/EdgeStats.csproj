@@ -2,6 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.1</Version>
+    <Description>Fast statistics for edge computing.</Description>
+    <Copyright>Copyright (c) 2020 Aiden William McIntosh</Copyright>
+    <PackageLicenseFile>MIT</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/Aidenwasalreadytaken/EdgeStats</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Aidenwasalreadytaken/EdgeStats</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageReleaseNotes>Initial Releases</PackageReleaseNotes>
+    <NeutralLanguage>en-AU</NeutralLanguage>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\MIT">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
