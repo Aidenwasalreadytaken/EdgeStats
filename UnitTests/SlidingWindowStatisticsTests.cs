@@ -1,4 +1,4 @@
-﻿using WebStatistics;
+﻿using EdgeStats;
 using Xunit;
 
 namespace UnitTests

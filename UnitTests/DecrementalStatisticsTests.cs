@@ -1,6 +1,5 @@
+using EdgeStats;
 using System;
-using System.Diagnostics;
-using WebStatistics;
 using Xunit;
 
 namespace UnitTests

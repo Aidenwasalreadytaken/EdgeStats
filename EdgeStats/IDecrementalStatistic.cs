@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebStatistics
+﻿
+namespace EdgeStats
 {
     public interface IDecrementalStatistic : IIncrementalStatistics
     {

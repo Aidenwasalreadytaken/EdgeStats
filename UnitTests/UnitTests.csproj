@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebStatistics\EdgeStats.csproj" />
+    <ProjectReference Include="..\EdgeStats\EdgeStats.csproj" />
   </ItemGroup>
 
 </Project>

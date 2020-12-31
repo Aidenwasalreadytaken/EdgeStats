@@ -1,11 +1,10 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
+using EdgeStats;
 using LinqStatistics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebStatistics;
 
 namespace Benchmarks
 {

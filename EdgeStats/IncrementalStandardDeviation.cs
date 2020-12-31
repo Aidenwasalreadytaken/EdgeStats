@@ -1,6 +1,5 @@
-﻿using System;
-
-namespace WebStatistics
+﻿
+namespace EdgeStats
 {
     public class IncrementalStandardDeviation : BaseStandardDeviation, IIncrementalStatistics
     {

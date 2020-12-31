@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebStatistics
+namespace EdgeStats
 {
     public class BaseStandardDeviation
     {
