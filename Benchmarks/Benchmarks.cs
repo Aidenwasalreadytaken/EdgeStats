@@ -1,45 +1,30 @@
-﻿using LinqStatistics;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Running;
+using LinqStatistics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebStatistics;
 
-namespace LocalEntry
+namespace Benchmarks
 {
-    class Program
+    [SimpleJob(RuntimeMoniker.NetCoreApp31, baseline: true)]
+    [RPlotExporter]
+    public class Benchmarks
     {
-        public const int SAMPLE_SIZE = 100000000;
-
         static void Main(string[] args)
         {
-            CalcStatisticsOfJumpingSample();
-            CalcStatisticsOfIncreasingSample();
-        }
-        public static void PrintStats(BaseStandardDeviation webStats)
-        {
-            Console.WriteLine("!!! Mean: " + webStats.Mean);
-            Console.WriteLine("!!! Var: " + webStats.Variance);
-            Console.WriteLine("!!! Std: " + webStats.StandardDeviation);
-            Console.WriteLine();
+            BenchmarkRunner.Run<Benchmarks>();
         }
 
-        public static void PrintDiff(double x, double y)
-        {
-            double diff = Math.Abs(x - y);
-            double magnitude = Math.Log10(diff);
+        [Params(1000, 10000)]
+        public int SAMPLE_SIZE;
 
-            Console.WriteLine($"!!! Diff: {diff}, Mag: {magnitude}");
-        }
-
-        public static void CalcStatisticsOfIncreasingSample()
+        [Benchmark]
+        public void IncreasingSampleNormalStatistics()
         {
-            IncreasingSampleNormalStatistics();
-            IncreasingSampleWebStatistics();
-        }
-
-        public static void IncreasingSampleNormalStatistics()
-        {
-            IEnumerable<double> samples = GenerateSamples((int)Math.Sqrt(SAMPLE_SIZE));
+            IEnumerable<double> samples = GenerateSamples(SAMPLE_SIZE);
             LinkedList<double> increasingSample = new LinkedList<double>();
             increasingSample.AddLast(0.0);
             foreach (double sample in samples)
@@ -50,9 +35,10 @@ namespace LocalEntry
             }
         }
 
-        public static void IncreasingSampleWebStatistics()
+        [Benchmark]
+        public void IncreasingSampleWebStatistics()
         {
-            IEnumerable<double> samples = GenerateSamples((int)Math.Sqrt(SAMPLE_SIZE));
+            IEnumerable<double> samples = GenerateSamples(SAMPLE_SIZE);
             IncrementalStandardDeviation stats = new IncrementalStandardDeviation();
             stats.AddSample(0.0);
             double stat;
@@ -64,13 +50,8 @@ namespace LocalEntry
             }
         }
 
-        public static void CalcStatisticsOfJumpingSample()
-        {
-            JumpingSampleNormalStatistics();
-            JumpingSampleWebStatistics();
-        }
-
-        public static void JumpingSampleNormalStatistics()
+        [Benchmark]
+        public void JumpingSampleNormalStatistics()
         {
             IEnumerable<double> firstSamples = GenerateSamples(SAMPLE_SIZE);
             firstSamples.StandardDeviationP();
@@ -80,7 +61,8 @@ namespace LocalEntry
             secondSamples.Average();
         }
 
-        public static void JumpingSampleWebStatistics()
+        [Benchmark]
+        public void JumpingSampleWebStatistics()
         {
             IncrementalStandardDeviation decrementalStatistics = new IncrementalStandardDeviation();
             IEnumerable<double> firstSamples = GenerateSamples(SAMPLE_SIZE);
@@ -100,7 +82,28 @@ namespace LocalEntry
             stat = decrementalStatistics.Mean;
         }
 
-        public static IEnumerable<double> GenerateSamples(int sampleSize)
+        [Benchmark]
+        public void FixedSampleNormalStatistics()
+        {
+            IEnumerable<double> firstSamples = GenerateSamples(SAMPLE_SIZE);
+            firstSamples.StandardDeviationP();
+            firstSamples.Average();
+        }
+
+        [Benchmark]
+        public void FixedSampleWebStatistics()
+        {
+            IncrementalStandardDeviation decrementalStatistics = new IncrementalStandardDeviation();
+            IEnumerable<double> firstSamples = GenerateSamples(SAMPLE_SIZE);
+            foreach (double sample in firstSamples)
+            {
+                decrementalStatistics.AddSample(sample);
+            }
+            double stat = decrementalStatistics.StandardDeviation;
+            stat = decrementalStatistics.Mean;
+        }
+
+        public IEnumerable<double> GenerateSamples(int sampleSize)
         {
             for (int ii = 0; ii < sampleSize; ii++)
             {

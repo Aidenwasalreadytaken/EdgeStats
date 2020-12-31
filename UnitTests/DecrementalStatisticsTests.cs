@@ -7,11 +7,11 @@ namespace UnitTests
 {
     public class DecrementalStatisticsTests
     {
-        private readonly DecrementalStatistics _statistics;
+        private readonly DecrementalStandardDeviation _statistics;
 
         public DecrementalStatisticsTests()
         {
-            _statistics = new DecrementalStatistics();
+            _statistics = new DecrementalStandardDeviation();
 
             _statistics.AddSample(1.5);
             _statistics.AddSample(5.2);
@@ -124,7 +124,7 @@ namespace UnitTests
         [Fact]
         public void WhenCountZeroAndRemove_ShouldThrow()
         {
-            DecrementalStatistics testStatistics = new DecrementalStatistics();
+            DecrementalStandardDeviation testStatistics = new DecrementalStandardDeviation();
 
             Assert.Throws<InvalidOperationException>(() => testStatistics.RemoveSample(Double.MaxValue));
         }
