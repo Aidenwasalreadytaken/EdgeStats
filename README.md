@@ -20,7 +20,7 @@ This library provideds the following functionality:
 ## Performance
 The bellow benchmarks were performed using BenchmarkDotNet and by taking the standard deviation and mean of a set. Increasing sample means the calculations were performed for every new sample added to the set up to SAMPLE_SIZE. Jumping sample means the calculations were performed on a set containing SAMPLE_SIZE samples, then again on a new set containing the old set plus another SAMPLE_SIZE samples. Fixed sample means the set remained unchanged and the calculations were performed only once.
 
-![Benchmark image](Benchmarks/Benchmark_Results.png)
+![Benchmark image](https://raw.githubusercontent.com/Aidenwasalreadytaken/EdgeStats/master/Benchmarks/Benchmark_Results.png)
 
 ## Usage
 ### Increasing sample
